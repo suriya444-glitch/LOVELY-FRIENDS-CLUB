@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players List - Lovely Friends Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neonYellow: '#ffea00',
+                        neonGreen: '#39ff14',
+                        charcoal: '#121212',
+                        cardBlack: '#1e1e1e'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-charcoal text-white min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="glass-card sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-neonYellow flex items-center justify-center text-charcoal font-bebas text-2xl">LFC</div>
+            <h1 class="text-2xl font-bebas tracking-wide text-white">LOVELY FRIENDS</h1>
+        </div>
+        <div class="hidden md:flex gap-8 font-inter font-semibold text-sm">
+            <a href="index.html" class="nav-link text-gray-300 hover:text-white">HOME</a>
+            <a href="stats.html" class="nav-link text-gray-300 hover:text-white">MATCH STATS</a>
+            <a href="gallery.html" class="nav-link text-gray-300 hover:text-white">GALLERY</a>
+            <a href="players-list.html" class="nav-link active text-neonGreen" style="text-shadow: 0 0 10px #39ff14;">PLAYERS LIST</a>
+        </div>
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center px-4 py-12 fade-in">
+        <h2 class="font-bebas text-5xl md:text-6xl tracking-wider mb-2 text-center">
+            TEAM <span class="text-neonGreen">PLAYERS</span>
+        </h2>
+        <p class="font-inter text-gray-400 mb-10 text-center max-w-lg">Complete list of our players.</p>
+
+        <div class="w-full max-w-4xl glass-card rounded-xl overflow-hidden shadow-[0_0_15px_#39ff14] border border-neonGreen/30">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left font-inter border-collapse">
+                    <thead>
+                        <tr class="bg-cardBlack text-neonYellow font-bebas text-xl uppercase tracking-wider border-b-2 border-neonGreen/50">
+                            <th class="px-6 py-4 border-r border-gray-700 w-2/5">Name</th>
+                            <th class="px-6 py-4 border-r border-gray-700 w-1/4 text-center">Position</th>
+                            <th class="px-6 py-4 border-r border-gray-700 w-1/4 text-center">Jersey No</th>
+                            <th class="px-6 py-4 w-1/10 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="players-table-body" class="text-gray-300">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add New Player Form -->
+        <div class="w-full max-w-4xl glass-card rounded-xl p-8 shadow-lg border border-gray-800 mt-8 mb-8">
+            <h3 class="font-bebas text-3xl text-neonYellow mb-6">ADD NEW PLAYER</h3>
+            <form id="add-player-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                <div class="flex flex-col">
+                    <label for="new-name" class="font-inter text-xs text-gray-400 mb-1 uppercase">Name</label>
+                    <input type="text" id="new-name" required class="bg-gray-900 border border-gray-700 text-white text-sm rounded px-3 py-2 focus:outline-none focus:border-neonGreen transition">
+                </div>
+                <div class="flex flex-col">
+                    <label for="new-position" class="font-inter text-xs text-gray-400 mb-1 uppercase">Position</label>
+                    <input type="text" id="new-position" required class="bg-gray-900 border border-gray-700 text-white text-sm rounded px-3 py-2 focus:outline-none focus:border-neonGreen transition">
+                </div>
+                <div class="flex flex-col">
+                    <label for="new-jersey" class="font-inter text-xs text-gray-400 mb-1 uppercase">Jersey No</label>
+                    <input type="text" id="new-jersey" required class="bg-gray-900 border border-gray-700 text-white text-sm rounded px-3 py-2 focus:outline-none focus:border-neonGreen transition">
+                </div>
+                <button type="submit" class="bg-neonGreen text-charcoal font-bebas text-xl py-2 rounded hover:bg-green-400 transition w-full shadow-[0_0_10px_#39ff14]">ADD</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-6 text-center text-gray-500 font-inter text-xs mt-auto">
+        <p>&copy; 2026 Lovely Friends Club - Namasivayapuram. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const defaultPlayers = [
+            { name: "AK Samy", position: "Manager", jersey: "TM" },
+            { name: "Vimal Raj (C)", position: "All-Rounder", jersey: "01" },
+            { name: "Vijay (VC)", position: "Right Corner", jersey: "82" },
+            { name: "Jeyam Gowsi", position: "Right Cover", jersey: "03" },
+            { name: "Praveen", position: "Left Cover", jersey: "09" }
+        ];
+
+        let players = JSON.parse(localStorage.getItem('lfc_players'));
+        if (!players) {
+            players = defaultPlayers;
+            localStorage.setItem('lfc_players', JSON.stringify(players));
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('players-table-body');
+            tbody.innerHTML = '';
+            players.forEach((p, index) => {
+                const bgClass = index % 2 === 1 ? ' bg-black bg-opacity-30' : '';
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-800 transition duration-200' + bgClass;
+                tr.innerHTML = 
+                    '<td class="px-6 py-4 border-b border-r border-gray-800 font-semibold text-white">' + p.name + '</td>' +
+                    '<td class="px-6 py-4 border-b border-r border-gray-800 text-center">' + p.position + '</td>' +
+                    '<td class="px-6 py-4 border-b border-r border-gray-800 text-center text-neonYellow font-bebas text-2xl">' + p.jersey + '</td>' +
+                    '<td class="px-6 py-4 border-b border-gray-800 text-center"><button onclick="deletePlayer(' + index + ')" class="text-red-500 hover:text-red-400 transition" title="Delete"><svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></td>';
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.deletePlayer = function(index) {
+            players.splice(index, 1);
+            localStorage.setItem('lfc_players', JSON.stringify(players));
+            renderTable();
+        };
+
+        document.getElementById('add-player-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-name').value;
+            const position = document.getElementById('new-position').value;
+            const jersey = document.getElementById('new-jersey').value;
+            
+            players.push({ name, position, jersey });
+            localStorage.setItem('lfc_players', JSON.stringify(players));
+            renderTable();
+            this.reset();
+        });
+
+        renderTable();
+    </script>
+</body>
+</html>

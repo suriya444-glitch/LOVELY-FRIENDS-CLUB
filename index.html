@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovely Friends Club - Namasivayapuram</title>
+    <meta name="description" content="Lovely Friends Club - Unity, Passion & Sportsmanship. A youth sports club in Namasivayapuram.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neonYellow: '#ffea00',
+                        neonGreen: '#39ff14',
+                        charcoal: '#121212',
+                        cardBlack: '#1e1e1e'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-charcoal text-white min-h-screen flex flex-col">
+    
+    <!-- Navigation -->
+    <nav class="glass-card sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-neonYellow flex items-center justify-center text-charcoal font-bebas text-2xl">LFC</div>
+            <h1 class="text-2xl font-bebas tracking-wide text-white">LOVELY FRIENDS</h1>
+        </div>
+        <div class="hidden md:flex gap-8 font-inter font-semibold text-sm">
+            <a href="index.html" class="nav-link active">HOME</a>
+            <a href="stats.html" class="nav-link text-gray-300 hover:text-white">MATCH STATS</a>
+            <a href="gallery.html" class="nav-link text-gray-300 hover:text-white">GALLERY</a>
+            <a href="squad.html" class="nav-link text-gray-300 hover:text-white">SQUAD & INFO</a>
+        </div>
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center px-4 py-20 fade-in relative">
+        <div class="inline-block px-4 py-1 rounded-full border border-neonGreen text-neonGreen font-inter text-sm mb-6 font-semibold uppercase tracking-widest text-glow">
+            Namasivayapuram
+        </div>
+        <h2 class="font-bebas text-6xl md:text-8xl lg:text-9xl tracking-wider mb-4 leading-none">
+            LOVELY FRIENDS <span class="text-neonYellow block">CLUB</span>
+        </h2>
+        <p class="font-inter text-gray-300 text-xl md:text-2xl max-w-2xl mb-4 italic leading-relaxed text-neonGreen">
+            "தோல்வி உன்னை துரத்தினால் <br> நீ வெற்றியை நோக்கி ஓடு"
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 flex-wrap justify-center sm:justify-start">
+            <a href="stats.html" class="bg-neonYellow text-charcoal font-bebas text-xl px-8 py-3 rounded hover:bg-yellow-400 transition transform hover:scale-105 shadow-[0_0_15px_#ffea00]">
+                EXPLORE MATCHES
+            </a>
+            <a href="gallery.html" class="border-2 border-white text-white font-bebas text-xl px-8 py-3 rounded hover:border-neonGreen hover:text-neonGreen transition transform hover:scale-105 hover:shadow-[0_0_15px_#39ff14]">
+                ADD TEAM MEMORIES
+            </a>
+            <a href="live-score.html" class="border-2 border-neonYellow text-neonYellow font-bebas text-xl px-8 py-3 rounded hover:bg-neonYellow hover:text-charcoal transition transform hover:scale-105 hover:shadow-[0_0_15px_#ffea00]">
+                LIVE MATCH SCORE
+            </a>
+            <a href="players-list.html" class="border-2 border-neonGreen text-neonGreen font-bebas text-xl px-8 py-3 rounded hover:bg-neonGreen hover:text-charcoal transition transform hover:scale-105 hover:shadow-[0_0_15px_#39ff14]">
+                PLAYERS LIST
+            </a>
+        </div>
+    </main>
+
+    <!-- Contact Info Section -->
+    <section class="px-6 py-16 bg-black bg-opacity-50 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Location -->
+            <a href="https://www.google.com/maps/place/Namasivayapuram,+Tamil+Nadu+628712/@9.0648934,78.1163738,14z/data=!3m1!4b1!4m6!3m5!1s0x3b0159e0ff2e572f:0x79995ade40256102!8m2!3d9.063011!4d78.1142242!16s%2Fg%2F1tj94vy3?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="glass-card p-6 rounded-xl glow-green cursor-pointer flex flex-col items-center text-center block">
+                <svg class="w-10 h-10 text-neonGreen mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <h3 class="font-bebas text-2xl text-white mb-2">Location</h3>
+                <p class="font-inter text-gray-400 text-sm">Dr. A.P.J. Abdul Kalam Ground<br>Namasivayapuram</p>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/nsp__official_/" target="_blank" class="glass-card p-6 rounded-xl glow-yellow cursor-pointer flex flex-col items-center text-center block">
+                <svg class="w-10 h-10 text-neonYellow mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"></line></svg>
+                <h3 class="font-bebas text-2xl text-white mb-2">Instagram</h3>
+                <p class="font-inter text-gray-400 text-sm">@nsp__official_</p>
+            </a>
+            
+            <!-- WhatsApp -->
+            <a href="https://wa.me/" target="_blank" class="glass-card p-6 rounded-xl border border-gray-700 hover:border-green-400 hover:shadow-[0_0_15px_#39ff14] transition cursor-pointer flex flex-col items-center text-center block">
+                <svg class="w-10 h-10 text-green-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <h3 class="font-bebas text-2xl text-white mb-2">WhatsApp</h3>
+                <p class="font-inter text-gray-400 text-sm">Join our community group</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-6 text-center text-gray-500 font-inter text-xs">
+        <p>&copy; 2026 Lovely Friends Club - Namasivayapuram. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

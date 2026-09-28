@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Match Score - Lovely Friends Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neonYellow: '#ffea00',
+                        neonGreen: '#39ff14',
+                        charcoal: '#121212',
+                        cardBlack: '#1e1e1e'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .live-bg-container {
+            background-image: url('bg-live.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .live-bg-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(10,10,20,0.6) 0%, rgba(10,10,15,0.95) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Keep main content above overlay */
+        nav, main, footer {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Particles Effect */
+        .particles-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: #ffea00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-charcoal text-white min-h-screen flex flex-col font-inter live-bg-container">
+
+    <!-- Navigation -->
+    <nav class="glass-card sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-neonYellow flex items-center justify-center text-charcoal font-bebas text-2xl">LFC</div>
+            <h1 class="text-2xl font-bebas tracking-wide text-white">LOVELY FRIENDS</h1>
+        </div>
+        <div class="hidden md:flex gap-8 font-inter font-semibold text-sm">
+            <a href="index.html" class="nav-link text-gray-300 hover:text-white">HOME</a>
+            <a href="stats.html" class="nav-link text-gray-300 hover:text-white">MATCH STATS</a>
+            <a href="gallery.html" class="nav-link text-gray-300 hover:text-white">GALLERY</a>
+            <a href="squad.html" class="nav-link text-gray-300 hover:text-white">SQUAD & INFO</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-10 flex flex-col items-center">
+        <h2 class="font-bebas text-5xl md:text-6xl text-neonYellow mb-8 text-center tracking-wider">LIVE MATCH SCORE</h2>
+
+        <div class="glass-card w-full max-w-4xl p-6 md:p-10 rounded-xl border border-gray-800">
+            <!-- Teams -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+                <div class="text-center w-full md:w-5/12">
+                    <h3 class="font-bebas text-4xl text-neonGreen mb-2">YOUR TEAM</h3>
+                    <div class="text-7xl font-bebas text-white bg-gray-900 rounded-xl py-6 border border-gray-700 shadow-[0_0_15px_rgba(57,255,20,0.2)]" id="your-score">0</div>
+                </div>
+                
+                <div class="font-bebas text-4xl text-gray-500 w-full md:w-2/12 text-center">VS</div>
+
+                <div class="text-center w-full md:w-5/12">
+                    <h3 class="font-bebas text-4xl text-gray-400 mb-2">OPPONENT TEAM</h3>
+                    <div class="text-7xl font-bebas text-white bg-gray-900 rounded-xl py-6 border border-gray-800 shadow-[0_0_15px_rgba(255,255,255,0.05)]" id="opp-score">0</div>
+                </div>
+            </div>
+            <!-- Watch Live Option -->
+            <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 mb-10 text-center flex flex-col md:flex-row justify-center items-center gap-4">
+                <input type="text" id="yt-link" placeholder="Paste YouTube Live Link here..." class="w-full max-w-md bg-cardBlack border border-gray-600 rounded px-4 py-2 text-white font-inter focus:outline-none focus:border-red-500 transition">
+                <button onclick="watchLive()" class="bg-red-600 text-white font-bebas text-xl px-6 py-2 rounded hover:bg-red-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    WATCH LIVE
+                </button>
+            </div>
+
+            <!-- Timer Settings -->
+            <div class="bg-gray-900 p-6 rounded-xl border border-gray-700 mb-10 flex flex-col items-center">
+                <h4 class="font-bebas text-2xl text-white mb-4">MATCH TIMER</h4>
+                <div class="text-6xl font-bebas text-neonYellow mb-4 tracking-widest text-glow" id="timer-display">00:00</div>
+                
+                <div class="flex flex-wrap justify-center gap-4 items-center">
+                    <div class="flex items-center gap-2 bg-cardBlack border border-gray-600 rounded px-4 py-2 focus-within:border-neonYellow transition">
+                        <input type="number" id="timer-input" value="20" min="1" max="120" class="w-16 bg-transparent text-white font-inter text-center focus:outline-none" onchange="resetTimer()">
+                        <span class="text-gray-400 font-inter text-sm">Minutes</span>
+                    </div>
+                    <button onclick="startTimer()" class="bg-neonGreen text-charcoal font-bebas text-xl px-6 py-2 rounded hover:bg-green-400 transition">START</button>
+                    <button onclick="pauseTimer()" class="bg-yellow-500 text-charcoal font-bebas text-xl px-6 py-2 rounded hover:bg-yellow-400 transition">PAUSE</button>
+                    <button onclick="resetTimer()" class="bg-gray-600 text-white font-bebas text-xl px-6 py-2 rounded hover:bg-gray-500 transition">RESET</button>
+                </div>
+            </div>
+
+            <!-- Score Controls -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Score Controls for Your Team -->
+                <div class="bg-cardBlack p-6 rounded-xl border border-neonGreen text-center shadow-[0_0_15px_rgba(57,255,20,0.1)]">
+                    <h4 class="font-bebas text-2xl text-white mb-4">ADD POINTS (YOUR TEAM)</h4>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button onclick="addYourScore(1)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+1</button>
+                        <button onclick="addYourScore(2)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+2</button>
+                        <button onclick="addYourScore(3)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+3</button>
+                        <button onclick="addYourScore(4)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+4</button>
+                        <button onclick="addYourScore(5)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+5</button>
+                        <button onclick="addYourScore(6)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+6</button>
+                        <button onclick="addYourScore(7)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+7</button>
+                        <button onclick="addYourScore(8)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+8</button>
+                        <button onclick="addYourScore(9)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-neonGreen hover:text-neonGreen transition hover:scale-105">+9</button>
+                    </div>
+                    <div class="mt-4">
+                         <button onclick="addYourScore(-1)" class="text-gray-400 hover:text-red-500 font-inter text-sm underline transition">Undo last point</button>
+                    </div>
+                </div>
+
+                <!-- Score Controls for Opponent Team -->
+                <div class="bg-cardBlack p-6 rounded-xl border border-gray-500 text-center shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                    <h4 class="font-bebas text-2xl text-white mb-4">ADD POINTS (OPPONENT)</h4>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button onclick="addOppScore(1)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+1</button>
+                        <button onclick="addOppScore(2)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+2</button>
+                        <button onclick="addOppScore(3)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+3</button>
+                        <button onclick="addOppScore(4)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+4</button>
+                        <button onclick="addOppScore(5)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+5</button>
+                        <button onclick="addOppScore(6)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+6</button>
+                        <button onclick="addOppScore(7)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+7</button>
+                        <button onclick="addOppScore(8)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+8</button>
+                        <button onclick="addOppScore(9)" class="w-12 h-12 rounded bg-gray-800 border border-gray-600 text-white font-bebas text-xl hover:border-white hover:text-white transition hover:scale-105">+9</button>
+                    </div>
+                    <div class="mt-4">
+                         <button onclick="addOppScore(-1)" class="text-gray-400 hover:text-red-500 font-inter text-sm underline transition">Undo last point</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-6 text-center text-gray-500 font-inter text-xs mt-auto">
+        <p>&copy; 2026 Lovely Friends Club - Namasivayapuram. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let yourScore = 0;
+        let oppScore = 0;
+        let timerInterval;
+        let timeLeft = 0;
+        let isTimerRunning = false;
+
+        function addYourScore(points) {
+            yourScore += points;
+            if (yourScore < 0) yourScore = 0;
+            document.getElementById('your-score').innerText = yourScore;
+        }
+
+        function addOppScore(points) {
+            oppScore += points;
+            if (oppScore < 0) oppScore = 0;
+            document.getElementById('opp-score').innerText = oppScore;
+        }
+
+        function watchLive() {
+            const link = document.getElementById('yt-link').value;
+            if (link && (link.includes('youtube.com') || link.includes('youtu.be'))) {
+                window.open(link, '_blank');
+            } else {
+                alert('Please enter a valid YouTube link.');
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer-display').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            
+            if (timeLeft === 0) {
+                const minutes = parseInt(document.getElementById('timer-input').value) || 20;
+                timeLeft = minutes * 60;
+            }
+
+            isTimerRunning = true;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    alert("Time's up!");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            const minutes = parseInt(document.getElementById('timer-input').value) || 20;
+            timeLeft = minutes * 60;
+            updateTimerDisplay();
+        }
+        
+        // Initialize timer display
+        resetTimer();
+
+        // Initialize particles
+        function initParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles-layer';
+            document.body.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 8 + 4) + 's';
+                p.style.animationDelay = (Math.random() * 5) + 's';
+                
+                // Randomly color some particles orange/red for that subtle effect
+                if (Math.random() > 0.7) {
+                    p.style.background = '#ff5722';
+                    p.style.boxShadow = '0 0 10px #ff5722, 0 0 20px #ff5722';
+                }
+                
+                particlesContainer.appendChild(p);
+            }
+        }
+        initParticles();
+    </script>
+</body>
+</html>
