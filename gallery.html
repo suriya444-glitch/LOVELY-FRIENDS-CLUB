@@ -24,7 +24,7 @@
 </head>
 <body class="bg-charcoal text-white min-h-screen flex flex-col">
 
-    <!-- Navigation -->
+        <!-- Navigation -->
     <nav class="glass-card sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-neonYellow flex items-center justify-center text-charcoal font-bebas text-2xl">LFC</div>
@@ -35,6 +35,18 @@
             <a href="stats.html" class="nav-link text-gray-300 hover:text-white">MATCH STATS</a>
             <a href="gallery.html" class="nav-link active">GALLERY</a>
             <a href="squad.html" class="nav-link text-gray-300 hover:text-white">SQUAD & INFO</a>
+        </div>
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-charcoal border-t border-gray-800 flex-col font-inter font-semibold text-sm shadow-xl z-50">
+            <a href="index.html" class="block px-6 py-4 border-b border-gray-800 text-gray-300 hover:text-white">HOME</a>
+            <a href="stats.html" class="block px-6 py-4 border-b border-gray-800 text-gray-300 hover:text-white">MATCH STATS</a>
+            <a href="gallery.html" class="block px-6 py-4 border-b border-gray-800 text-white text-neonYellow">GALLERY</a>
+            <a href="squad.html" class="block px-6 py-4 text-gray-300 hover:text-white">SQUAD & INFO</a>
         </div>
     </nav>
 
@@ -267,5 +279,19 @@
         });
 
     </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if(mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+            });
+        }
+    </script>
+
 </body>
 </html>
